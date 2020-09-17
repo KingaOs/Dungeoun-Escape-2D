@@ -2,26 +2,74 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
     [SerializeField]
     protected int health;
     [SerializeField]
-    protected int speed;
+    protected float speed;
     [SerializeField]
     protected int gems;
     [SerializeField]
     protected Transform pointA, pointB;
+    protected bool flip;
 
-    public virtual void Attack()
+    protected Vector3 currentTarget;
+    protected Animator anim;
+    protected SpriteRenderer sprite;
+
+    private void Start()
     {
+        Init();
+    }
 
+
+    public virtual void Init()
+    {
+        anim = GetComponentInChildren<Animator>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
     }
 
     public virtual void Update()
     {
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            return;
+        Movement();
+    }
 
+    public virtual void Movement()
+    {
+        Flip(flip);
+        if (transform.position == pointA.position)
+        {
+            currentTarget = pointB.position;
+            anim.SetTrigger("Idle");
+            flip = false;
+        }
+        if (transform.position == pointB.position)
+        {
+            currentTarget = pointA.position;
+            anim.SetTrigger("Idle");
+            flip = true;
+        }
+
+        transform.position = Vector3.MoveTowards(transform.position, currentTarget, speed * Time.deltaTime);
+    }
+
+    public virtual void Flip(bool flipRight)
+    {
+        if (flipRight)
+        {
+            sprite.flipX = true;
+        }
+        else if (!flipRight)
+        {
+            sprite.flipX = false;
+        }
 
     }
+
+
+
 
 }
