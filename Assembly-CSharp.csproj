@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\Player\Attack.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAnimation.cs" />
+    <Compile Include="Assets\Test.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Unity/Dungeoun-Escape-2D/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

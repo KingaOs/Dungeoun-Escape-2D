@@ -10,11 +10,16 @@ public class Skeleton : Enemy, IDamageable
     public override void Init()
     {
         base.Init();
+        Health = base.health;
     }
 
     public void Damage()
     {
-
+        Health--;
+        anim.SetTrigger("Hit");
+        isHit = true;
+        if (Health < 1)
+            Destroy(this.gameObject);
     }
 
 }
